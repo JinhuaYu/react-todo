@@ -4,12 +4,13 @@
 import React, { Component } from 'react'
 import store from './store/'
 import { 
+  initListAction,
   getInputChangeAction, 
   getAddItemAction,
-  getDeleteItemAction, 
-  getTodoList
+  getDeleteItemAction
 } from './store/actionCreators'
 import TodoListUI from './TodoListUI'
+import axios from 'axios'
 
 class TodoList extends Component {
 
@@ -37,13 +38,11 @@ class TodoList extends Component {
   }
 
   componentDidMount() {
-    // axios.get('/api/todolist')
-    //   .then(res => {
-    //     const action = initListAction(res.data)
-    //     store.dispatch(action)
-    //   })
-    const action = getTodoList()
-    store.dispatch(action)
+    axios.get('/api/todolist')
+      .then(res => {
+        const action = initListAction(res.data)
+        store.dispatch(action)
+      })
   }
 
   // 输入框值变化
